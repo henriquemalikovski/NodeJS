@@ -1,4 +1,4 @@
-'use stritct'
+'use strict'
 
 const express = require('express')
 const router = express.Router()
