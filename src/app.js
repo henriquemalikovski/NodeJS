@@ -1,16 +1,13 @@
 'use strict'
 
-const DB_USER = "henrique"
-const DB_PWD = "AZonrxXGqk2rMjiU"
-
 const bodyParser = require('body-parser')
 const express = require('express')
 const router = express.Router()
+const config = require('./config')
 const app = express()
-
 const mongoose = require('mongoose')
 
-mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PWD}@nodejs.sdyjehs.mongodb.net/?retryWrites=true&w=majority`)
+mongoose.connect(config.connectionString)
 
 const Product = require('./models/product')
 const Customer = require('./models/customer')
