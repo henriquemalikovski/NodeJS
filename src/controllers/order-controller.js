@@ -2,6 +2,7 @@
 
 const repository = require('../repositories/order-repository')
 const guid = require('guid')
+const authService = require('../services/auth-service')
 
 exports.get = async (req, res, next) => {
   try {
@@ -13,14 +14,15 @@ exports.get = async (req, res, next) => {
 }
 
 exports.post = async (req, res, next) => {
-  let data = {
-    customer: req.body.customer,
-    number: guid.raw().substring(0, 6),
-    items: req.body.items
-  }
-
   try {
-    await repository.create(data)
+    const token = req.headers['x-access-token']
+    const data = await authService.decodeToken(token)
+
+    await repository.create({
+      customer: data.id,
+      number: guid.raw().substring(0, 6),
+      items: req.body.items
+    })
     res.status(201).send({ mensage: "Pedido cadastrado com sucesso!" })
   } catch (e) {
     res

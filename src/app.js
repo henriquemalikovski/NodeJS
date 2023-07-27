@@ -2,7 +2,6 @@
 
 const bodyParser = require('body-parser')
 const express = require('express')
-const router = express.Router()
 const config = require('./config')
 const app = express()
 const mongoose = require('mongoose')
